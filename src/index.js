@@ -97,7 +97,16 @@ class Edcan {
 
 
 
-      elem.appendChild(canvas);
+      elem.appendChild(canvas); //add  canvas to host
+      //setup output
+      let  output_element = document.createElement('input');
+      output_element.type = 'hidden';
+      output_element.id = 'out-'+uniq_id;
+      if(elem.dataset.out){
+        output_element.name =elem.dataset.out
+      }
+      elem.appendChild(output_element);
+
       this.edit_data[uniq_id]={}
       this.edit_data[uniq_id].canvas_width = canvas_width;
       this.edit_data[uniq_id].canvas_height = canvas_height;
@@ -151,7 +160,6 @@ class Edcan {
     let newheight = (source_img.height * ratio)*zoom;
     console.log( pos_x,pos_y,newWidth,newheight);
     current_ctx.clearRect(0, 0,   current_ctx.canvas.width,  current_ctx.canvas.height);
-
     current_ctx.drawImage(source_img,pos_x,pos_y,newWidth,newheight);
 
   }
