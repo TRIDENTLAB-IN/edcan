@@ -2,7 +2,8 @@ class Edcan {
   constructor() {
     this.default_height = 300
     this.default_bg = "#c9fffa";
-    this.edit_data = []
+    this.edit_data = [];
+    this.default_output_type = "webp";
 
 
     this.init();
@@ -117,6 +118,11 @@ class Edcan {
       this.edit_data[uniq_id].y =0;
       this.edit_data[uniq_id].drag_start_x =0;
       this.edit_data[uniq_id].drag_start_y =0;
+      if(elem.dataset.type){
+        this.edit_data[uniq_id].output_type = elem.dataset.type;
+      }else{
+        this.edit_data[uniq_id].output_type = this.default_output_type;
+      }
 
     });
 
@@ -164,11 +170,22 @@ class Edcan {
 
   }
 
+  //output  data url to  output  element
+  convert_to_dataURL(uniq_id){
+    let current_canvas = document.getElementById('edc-'+uniq_id);
+    let img_data = current_canvas.toDataURL('image/'+this.edit_data[uniq_id].output_type);
+    let output_element = document.getElementById('out-'+uniq_id);
+    output_element.value = img_data;
+
+
+  }
+
 
   onPointerUp(e){
     e.preventDefault()
     let elem_id = e.target.id.split("-")[1]
     this.edit_data[elem_id].active =false
+    this.convert_to_dataURL(elem_id)
 
   }
 
@@ -208,6 +225,7 @@ class Edcan {
       this.edit_data[elem_id].zoom= this.edit_data[elem_id].zoom-0.005
     }
     this.renderOnCanvas(elem_id);
+    this.convert_to_dataURL(elem_id);
 
   }
 
