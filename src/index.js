@@ -46,6 +46,12 @@ class Edcan {
       canvas.style.height = canvas_height+"px";
       canvas.style.backgroundColor = this.default_bg;
       canvas.style.display = 'block';
+      let ctx = canvas.getContext("2d");
+      ctx.font = "25px Helvetica";
+      ctx.fillStyle = '#ffFFFF';
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("Please Drag & Drop a Image ", canvas.width / 2, canvas.height / 2);
 
 
       // if the canvas  width > host div width then will resize the style
